@@ -6,7 +6,7 @@ const WHATSAPP_NUMBER = '972528772726';
 const BOOKING_URL = '';
 // The "השאירו פרטים" form is emailed through Web3Forms to msddfz@gmail.com.
 // The key comes from web3forms.com for that address; it's safe to publish (it can only send there).
-const WEB3FORMS_KEY = '';
+const WEB3FORMS_KEY = 'e83a949d-8344-4833-b392-664b2e3e14f2';
 
 const MESSAGES = {
   general: 'היי מיטל, אשמח לשמוע על שירותי המשרד',
