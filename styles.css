@@ -137,7 +137,7 @@ section[id] { scroll-margin-top: 72px; }
 }
 .hero-art img {
   position: relative; width: min(480px, 86%); height: auto; aspect-ratio: 1;
-  border-radius: 50%; object-fit: cover;
+  border-radius: 50%; object-fit: cover; object-position: center 25%;
   box-shadow: 0 30px 60px -30px rgba(90, 60, 40, 0.35);
 }
 
@@ -167,6 +167,8 @@ section[id] { scroll-margin-top: 72px; }
   position: relative; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%;
   border-radius: 220px 220px 28px 28px; box-shadow: 0 30px 60px -30px rgba(90, 60, 40, 0.35);
 }
+/* The round logo is shown whole inside the arch; its white corners blend into the white fill. */
+.portrait img.is-logo { object-fit: contain; object-position: center; background: #FEFEFE; }
 .about-copy { gap: 22px; }
 .about-copy .lead { line-height: 1.8; }
 .quote { font-size: 24px; line-height: 1.5; margin-top: 8px; padding-right: 20px; border-right: 2px solid var(--copper); }
