@@ -28,17 +28,26 @@ document.querySelectorAll('[data-phone-display]').forEach(el => {
   el.textContent = local.replace(/^(\d{3})(\d{3})(\d+)$/, '$1-$2-$3');
 });
 
-// Phone menu: toggled by the ☰ button, closed by picking a link, tapping outside or Escape.
-const menuBtn = document.getElementById('menu-btn');
-const mobileNav = document.getElementById('mobile-nav');
-const setMenu = open => {
-  mobileNav.hidden = !open;
-  menuBtn.setAttribute('aria-expanded', String(open));
+// Phone section bar: highlight the section being read and keep its button in view.
+const quickNav = document.getElementById('quick-nav');
+const quickLinks = [...quickNav.querySelectorAll('a')];
+const setActive = id => {
+  quickLinks.forEach(a => {
+    const on = a.getAttribute('href') === '#' + id;
+    a.classList.toggle('is-active', on);
+    if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+    if (on && quickNav.offsetParent) {
+      const n = quickNav.getBoundingClientRect(), r = a.getBoundingClientRect();
+      quickNav.scrollBy({ left: r.left + r.width / 2 - (n.left + n.width / 2), behavior: 'smooth' });
+    }
+  });
 };
-menuBtn.addEventListener('click', () => setMenu(mobileNav.hidden));
-mobileNav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
-document.addEventListener('click', e => { if (!mobileNav.hidden && !e.target.closest('.site-header')) setMenu(false); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !mobileNav.hidden) { setMenu(false); menuBtn.focus(); } });
+if ('IntersectionObserver' in window) {
+  const spy = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+    { rootMargin: '-45% 0px -50% 0px' });
+  quickLinks.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s) spy.observe(s); });
+  spy.observe(document.getElementById('top'));
+}
 
 // Lead form → emails the visitor's details to Meital.
 const form = document.getElementById('lead-form');
