@@ -28,6 +28,18 @@ document.querySelectorAll('[data-phone-display]').forEach(el => {
   el.textContent = local.replace(/^(\d{3})(\d{3})(\d+)$/, '$1-$2-$3');
 });
 
+// Phone menu: toggled by the ☰ button, closed by picking a link, tapping outside or Escape.
+const menuBtn = document.getElementById('menu-btn');
+const mobileNav = document.getElementById('mobile-nav');
+const setMenu = open => {
+  mobileNav.hidden = !open;
+  menuBtn.setAttribute('aria-expanded', String(open));
+};
+menuBtn.addEventListener('click', () => setMenu(mobileNav.hidden));
+mobileNav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+document.addEventListener('click', e => { if (!mobileNav.hidden && !e.target.closest('.site-header')) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !mobileNav.hidden) { setMenu(false); menuBtn.focus(); } });
+
 // Lead form → emails the visitor's details to Meital.
 const form = document.getElementById('lead-form');
 const thanks = document.getElementById('thanks');

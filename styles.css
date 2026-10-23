@@ -86,7 +86,38 @@ section[id] { scroll-margin-top: 72px; }
 .main-nav a:hover { color: var(--copper-dark); }
 .header-cta { background: var(--ink); color: var(--cream); padding: 10px 20px; border-radius: 999px; font-weight: 600; white-space: nowrap; }
 .header-cta:hover { background: var(--ink-2); color: var(--cream); }
-@media (max-width: 859px) { .main-nav { display: none; } }
+.header-end { display: flex; align-items: center; gap: 8px; }
+
+/* Phone menu */
+.menu-btn {
+  display: none;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--line); background: #FFFFFF; cursor: pointer;
+  flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.menu-btn span { display: block; width: 18px; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .3s ease, opacity .3s ease; }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-nav {
+  display: flex; flex-direction: column;
+  padding: 4px 20px 12px; border-top: 1px solid var(--line);
+}
+.mobile-nav a { color: var(--ink-2); font-size: 18px; padding: 14px 4px; border-bottom: 1px solid var(--line); }
+.mobile-nav a:last-child { border-bottom: 0; }
+.mobile-nav a.strong { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 859px) {
+  .main-nav { display: none; }
+  .menu-btn { display: flex; }
+}
+@media (min-width: 860px) { .mobile-nav { display: none !important; } }
+@media (max-width: 380px) {
+  .site-header .wrap { padding-inline: 14px; gap: 10px; }
+  .brand { gap: 8px; }
+  .brand img { width: 38px; height: 38px; }
+  .header-cta { padding: 10px 14px; font-size: 15px; }
+}
 
 /* Hero */
 .hero { padding-top: clamp(40px, 8vw, 88px); padding-bottom: clamp(48px, 7vw, 72px); gap: 56px; align-items: center; }
@@ -256,7 +287,15 @@ section[id] { scroll-margin-top: 72px; }
   box-shadow: 0 14px 30px -10px rgba(28, 25, 23, 0.5);
 }
 .wa-float:hover { background: var(--ink-2); color: var(--cream); }
-.wa-float::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #7BC48F; }
+.wa-icon { width: 22px; height: 22px; color: #7BC48F; flex: none; }
+
+/* On phones the floating button shrinks to a round icon and the footer leaves room for it. */
+@media (max-width: 859px) {
+  .wa-float { width: 56px; height: 56px; padding: 0; justify-content: center; bottom: 14px; left: 14px; }
+  .wa-icon { width: 26px; height: 26px; }
+  .wa-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .site-footer .wrap { padding-bottom: 88px; }
+}
 
 /* Scroll reveal (enabled by main.js) */
 .js-reveal .reveal {
